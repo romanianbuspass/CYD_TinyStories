@@ -1,0 +1,31 @@
+# ESP-IDF build artifacts
+build/
+*.elf
+*.o
+*.a
+*.map
+*.bin
+!components/tinystories_engine/generated/vocab.bin
+CMakeCache.txt
+sdkconfig.old
+compile_commands.json
+
+# ESP-IDF component manager (re-fetched via `idf.py` / dependencies.lock)
+managed_components/
+
+# Large model weights (excluded from repo — see README "Model Weights")
+model_src/model.bin
+model_partition/model.bin
+
+# Host verification build output
+host_verify/verify
+
+# PlatformIO (if used)
+.pio/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

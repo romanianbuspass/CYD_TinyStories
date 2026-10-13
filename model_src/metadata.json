@@ -1,0 +1,91 @@
+{
+  "architecture": "PLE",
+  "format": {
+    "magic_ascii": "PLE\\0",
+    "magic_le_hex": "0x00454c50",
+    "version": 1,
+    "header_bytes": 56,
+    "flags": {
+      "TIED_HEAD": true
+    }
+  },
+  "config": {
+    "input_vocab": 32768,
+    "output_vocab": 25353,
+    "active_tokenizer_entries": 25353,
+    "d_model": 96,
+    "n_layers": 6,
+    "n_heads": 4,
+    "ffn_hidden": 66,
+    "ple_dim": 128,
+    "seq_len": 256,
+    "rope_theta": 10000.0
+  },
+  "parameters": {
+    "ple_table": 25165824,
+    "tok_emb": 3145728,
+    "core": 556416,
+    "total": 28867968
+  },
+  "quantization": {
+    "weights": "int4",
+    "group_size": 128
+  },
+  "runtime": {
+    "weights_staged_int8": "per-position core and tied head, in PSRAM",
+    "activations": "int8, quantized per staged matvec",
+    "sram": "float scratch buffers and RMSNorm vectors",
+    "psram": "staged core, staged head, KV cache, logits",
+    "flash": "PLE table and token embedding, memory-mapped"
+  },
+  "measured": {
+    "as_published": {
+      "ms_per_token": 102.9,
+      "tok_per_second": 9.5,
+      "date": "2026-07-21"
+    },
+    "current": {
+      "ms_per_token": 94.9,
+      "tok_per_second": 9.88,
+      "staged_tensors": 44,
+      "managed_sram_bytes": 29320,
+      "psram_mb": 4.19,
+      "build": "-O3"
+    }
+  },
+  "device_fingerprint_fnv1a": "a9bdd778",
+  "files": {
+    "model.bin": {
+      "sha256": "1d8326c05c383ccfa615f5455575802817cb453dbc7ab28875d41a9dbb45477e",
+      "bytes": 14912348,
+      "license": "MIT"
+    },
+    "tokenizer.json": {
+      "sha256": "4e28163669f2249af31a528a54fc25064dcbd0a34edbfa7bedb16d2d600ec7ae",
+      "bytes": 1788896,
+      "license": "MIT"
+    }
+  },
+  "weights_license": "MIT",
+  "tokenizer_license": "MIT",
+  "training_data_license": "CDLA-Sharing-1.0",
+  "source_checkpoint": {
+    "name": "ple-cleandeploy-s0",
+    "distributed": false,
+    "sha256": "746950c43e85c6e42e0cdaaf7bee72100e70be40a0bbaa473d57fbf85e17600a"
+  },
+  "training_data": {
+    "dataset": "roneneldan/TinyStories",
+    "slice_bytes": 314572800,
+    "revision_pinned": false,
+    "redistributed": false,
+    "note": "prepare.py fetches the dataset's main branch and records no hash of the raw slice, so a re-run reproduces the method, not the bytes"
+  },
+  "hardware": {
+    "board": "ESP32-S3",
+    "flash_mb": 16,
+    "psram_mb": 8,
+    "sram_kb": 512,
+    "model_partition_offset": "0x110000"
+  }
+}
